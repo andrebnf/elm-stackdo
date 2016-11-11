@@ -144,6 +144,9 @@ update msg model =
                         { t | description = task }
                     else
                         t
+
+                focus =
+                    Dom.focus ("task-input")
             in
                 { model | tasks = List.map updateTask model.tasks }
                     ! []
@@ -186,6 +189,7 @@ viewInput task =
             ]
         , input
             [ class "new-todo"
+            , id "task-input"
             , placeholder "Something new to be done"
             , autofocus True
             , value task

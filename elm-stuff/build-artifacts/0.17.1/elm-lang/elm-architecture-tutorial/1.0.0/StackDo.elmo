@@ -60,6 +60,7 @@ var _elm_lang$elm_architecture_tutorial$StackDo$update = F2(
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			case 'UpdateTask':
+				var focus = _elm_lang$dom$Dom$focus('task-input');
 				var updateTask = function (t) {
 					return _elm_lang$core$Native_Utils.eq(t.id, _p0._0) ? _elm_lang$core$Native_Utils.update(
 						t,
@@ -195,6 +196,7 @@ var _elm_lang$elm_architecture_tutorial$StackDo$viewInput = function (task) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$class('new-todo'),
+						_elm_lang$html$Html_Attributes$id('task-input'),
 						_elm_lang$html$Html_Attributes$placeholder('Something new to be done'),
 						_elm_lang$html$Html_Attributes$autofocus(true),
 						_elm_lang$html$Html_Attributes$value(task),
