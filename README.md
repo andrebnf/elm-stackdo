@@ -6,3 +6,4 @@ Elm todo list app with stack approach.
 
 - add controls (move task up, down, star)
 - fix task bug on older tasks
+- add css media queries (make it responsive)
