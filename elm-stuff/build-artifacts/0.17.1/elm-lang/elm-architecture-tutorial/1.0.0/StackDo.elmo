@@ -1,0 +1,406 @@
+var _elm_lang$elm_architecture_tutorial$StackDo$newTask = F2(
+	function (desc, id) {
+		return {description: desc, completed: false, editing: false, id: id};
+	});
+var _elm_lang$elm_architecture_tutorial$StackDo$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'NoOp':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'Add':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							uid: model.uid + 1,
+							field: '',
+							tasks: _elm_lang$core$String$isEmpty(model.field) ? model.tasks : A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(_elm_lang$elm_architecture_tutorial$StackDo$newTask, model.field, model.uid)
+									]),
+								model.tasks)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'UpdateField':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{field: _p0._0}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'EditingTask':
+				var _p1 = _p0._0;
+				var focus = _elm_lang$dom$Dom$focus(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'todo-',
+						_elm_lang$core$Basics$toString(_p1)));
+				var updateTask = function (t) {
+					return _elm_lang$core$Native_Utils.eq(t.id, _p1) ? _elm_lang$core$Native_Utils.update(
+						t,
+						{editing: _p0._1}) : t;
+				};
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							tasks: A2(_elm_lang$core$List$map, updateTask, model.tasks)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'UpdateTask':
+				var updateTask = function (t) {
+					return _elm_lang$core$Native_Utils.eq(t.id, _p0._0) ? _elm_lang$core$Native_Utils.update(
+						t,
+						{description: _p0._1}) : t;
+				};
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							tasks: A2(_elm_lang$core$List$map, updateTask, model.tasks)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							tasks: A2(
+								_elm_lang$core$List$filter,
+								function (t) {
+									return !_elm_lang$core$Native_Utils.eq(t.id, _p0._0);
+								},
+								model.tasks)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+		}
+	});
+var _elm_lang$elm_architecture_tutorial$StackDo$emptyModel = {
+	tasks: _elm_lang$core$Native_List.fromArray(
+		[]),
+	field: '',
+	uid: 0
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$init = function (savedModel) {
+	return A2(
+		_elm_lang$core$Platform_Cmd_ops['!'],
+		A2(_elm_lang$core$Maybe$withDefault, _elm_lang$elm_architecture_tutorial$StackDo$emptyModel, savedModel),
+		_elm_lang$core$Native_List.fromArray(
+			[]));
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$setStorage = _elm_lang$core$Native_Platform.outgoingPort(
+	'setStorage',
+	function (v) {
+		return {
+			tasks: _elm_lang$core$Native_List.toArray(v.tasks).map(
+				function (v) {
+					return {description: v.description, completed: v.completed, editing: v.editing, id: v.id};
+				}),
+			field: v.field,
+			uid: v.uid
+		};
+	});
+var _elm_lang$elm_architecture_tutorial$StackDo$updateWithStorage = F2(
+	function (msg, model) {
+		var _p2 = A2(_elm_lang$elm_architecture_tutorial$StackDo$update, msg, model);
+		var newModel = _p2._0;
+		var cmds = _p2._1;
+		return {
+			ctor: '_Tuple2',
+			_0: newModel,
+			_1: _elm_lang$core$Platform_Cmd$batch(
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$elm_architecture_tutorial$StackDo$setStorage(newModel),
+						cmds
+					]))
+		};
+	});
+var _elm_lang$elm_architecture_tutorial$StackDo$Model = F3(
+	function (a, b, c) {
+		return {tasks: a, field: b, uid: c};
+	});
+var _elm_lang$elm_architecture_tutorial$StackDo$Task = F4(
+	function (a, b, c, d) {
+		return {description: a, completed: b, editing: c, id: d};
+	});
+var _elm_lang$elm_architecture_tutorial$StackDo$Delete = function (a) {
+	return {ctor: 'Delete', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$UpdateTask = F2(
+	function (a, b) {
+		return {ctor: 'UpdateTask', _0: a, _1: b};
+	});
+var _elm_lang$elm_architecture_tutorial$StackDo$EditingTask = F2(
+	function (a, b) {
+		return {ctor: 'EditingTask', _0: a, _1: b};
+	});
+var _elm_lang$elm_architecture_tutorial$StackDo$UpdateField = function (a) {
+	return {ctor: 'UpdateField', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$Add = {ctor: 'Add'};
+var _elm_lang$elm_architecture_tutorial$StackDo$NoOp = {ctor: 'NoOp'};
+var _elm_lang$elm_architecture_tutorial$StackDo$onEnter = function (msg) {
+	var tagger = function (code) {
+		return _elm_lang$core$Native_Utils.eq(code, 13) ? msg : _elm_lang$elm_architecture_tutorial$StackDo$NoOp;
+	};
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'keydown',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$keyCode));
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$viewInput = function (task) {
+	return A2(
+		_elm_lang$html$Html$header,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('header')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$h1,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$img,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$src('logo.png')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[])),
+						_elm_lang$html$Html$text('stackdo')
+					])),
+				A2(
+				_elm_lang$html$Html$input,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('new-todo'),
+						_elm_lang$html$Html_Attributes$placeholder('Something new to be done'),
+						_elm_lang$html$Html_Attributes$autofocus(true),
+						_elm_lang$html$Html_Attributes$value(task),
+						_elm_lang$html$Html_Attributes$name('newTask'),
+						_elm_lang$html$Html_Events$onInput(_elm_lang$elm_architecture_tutorial$StackDo$UpdateField),
+						_elm_lang$elm_architecture_tutorial$StackDo$onEnter(_elm_lang$elm_architecture_tutorial$StackDo$Add)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[]))
+			]));
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$viewTask = function (todo) {
+	return A2(
+		_elm_lang$html$Html$li,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$classList(
+				_elm_lang$core$Native_List.fromArray(
+					[
+						{ctor: '_Tuple2', _0: 'editing', _1: todo.editing}
+					]))
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('view')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$input,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('edit'),
+								_elm_lang$html$Html_Attributes$value(todo.description),
+								_elm_lang$html$Html_Attributes$name('title'),
+								_elm_lang$html$Html_Attributes$id(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'todo-',
+									_elm_lang$core$Basics$toString(todo.id))),
+								_elm_lang$html$Html_Events$onClick(
+								A2(_elm_lang$elm_architecture_tutorial$StackDo$EditingTask, todo.id, true)),
+								_elm_lang$html$Html_Events$onInput(
+								_elm_lang$elm_architecture_tutorial$StackDo$UpdateTask(todo.id)),
+								_elm_lang$html$Html_Events$onBlur(
+								A2(_elm_lang$elm_architecture_tutorial$StackDo$EditingTask, todo.id, false)),
+								_elm_lang$elm_architecture_tutorial$StackDo$onEnter(
+								A2(_elm_lang$elm_architecture_tutorial$StackDo$EditingTask, todo.id, false))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[])),
+						A2(
+						_elm_lang$html$Html$button,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('destroy'),
+								_elm_lang$html$Html_Events$onClick(
+								_elm_lang$elm_architecture_tutorial$StackDo$Delete(todo.id))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[]))
+					]))
+			]));
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$viewKeyedTask = function (todo) {
+	return {
+		ctor: '_Tuple2',
+		_0: _elm_lang$core$Basics$toString(todo.id),
+		_1: A2(_elm_lang$html$Html_Lazy$lazy, _elm_lang$elm_architecture_tutorial$StackDo$viewTask, todo)
+	};
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$viewTasks = function (tasks) {
+	return A2(
+		_elm_lang$html$Html$section,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('main')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html_Keyed$ul,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('todo-list')
+					]),
+				A2(_elm_lang$core$List$map, _elm_lang$elm_architecture_tutorial$StackDo$viewKeyedTask, tasks))
+			]));
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('stack-do-wrapper')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$section,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('stackdo-app')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(_elm_lang$html$Html_Lazy$lazy, _elm_lang$elm_architecture_tutorial$StackDo$viewInput, model.field),
+						A2(_elm_lang$html$Html_Lazy$lazy, _elm_lang$elm_architecture_tutorial$StackDo$viewTasks, model.tasks)
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('footer')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('created by '),
+						A2(
+						_elm_lang$html$Html$a,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$href('http://andrebnf.github.io/'),
+								_elm_lang$html$Html_Attributes$target('_blank')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('André Bonfatti')
+							])),
+						_elm_lang$html$Html$text(' based on '),
+						A2(
+						_elm_lang$html$Html$a,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$href('https://github.com/evancz/elm-todomvc'),
+								_elm_lang$html$Html_Attributes$target('_blank')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('TodoMVC')
+							]))
+					]))
+			]));
+};
+var _elm_lang$elm_architecture_tutorial$StackDo$main = {
+	main: _elm_lang$html$Html_App$programWithFlags(
+		{
+			init: _elm_lang$elm_architecture_tutorial$StackDo$init,
+			view: _elm_lang$elm_architecture_tutorial$StackDo$view,
+			update: _elm_lang$elm_architecture_tutorial$StackDo$updateWithStorage,
+			subscriptions: function (_p3) {
+				return _elm_lang$core$Platform_Sub$none;
+			}
+		}),
+	flags: _elm_lang$core$Json_Decode$oneOf(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+				A2(
+				_elm_lang$core$Json_Decode$map,
+				_elm_lang$core$Maybe$Just,
+				A2(
+					_elm_lang$core$Json_Decode$andThen,
+					A2(_elm_lang$core$Json_Decode_ops[':='], 'field', _elm_lang$core$Json_Decode$string),
+					function (field) {
+						return A2(
+							_elm_lang$core$Json_Decode$andThen,
+							A2(
+								_elm_lang$core$Json_Decode_ops[':='],
+								'tasks',
+								_elm_lang$core$Json_Decode$list(
+									A2(
+										_elm_lang$core$Json_Decode$andThen,
+										A2(_elm_lang$core$Json_Decode_ops[':='], 'completed', _elm_lang$core$Json_Decode$bool),
+										function (completed) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												A2(_elm_lang$core$Json_Decode_ops[':='], 'description', _elm_lang$core$Json_Decode$string),
+												function (description) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														A2(_elm_lang$core$Json_Decode_ops[':='], 'editing', _elm_lang$core$Json_Decode$bool),
+														function (editing) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
+																function (id) {
+																	return _elm_lang$core$Json_Decode$succeed(
+																		{completed: completed, description: description, editing: editing, id: id});
+																});
+														});
+												});
+										}))),
+							function (tasks) {
+								return A2(
+									_elm_lang$core$Json_Decode$andThen,
+									A2(_elm_lang$core$Json_Decode_ops[':='], 'uid', _elm_lang$core$Json_Decode$int),
+									function (uid) {
+										return _elm_lang$core$Json_Decode$succeed(
+											{field: field, tasks: tasks, uid: uid});
+									});
+							});
+					}))
+			]))
+};

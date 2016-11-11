@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>StackDo</title>
+  <script type="text/javascript" src="elm.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
+</head>
+
+<body>
+</body>
+
+<script type="text/javascript">
+var storedState = localStorage.getItem('stackdo-save');
+var startingState = storedState ? JSON.parse(storedState) : null;
+var stackdo = Elm.StackDo.fullscreen(startingState);
+stackdo.ports.setStorage.subscribe(function(state) {
+    localStorage.setItem('stackdo-save', JSON.stringify(state));
+});
+</script>
+
+</html>

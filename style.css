@@ -1,0 +1,159 @@
+/* header */
+body {
+  font-family: 'Maven Pro', sans-serif;
+  background-color: #FBFBFB;
+  color: #666;
+  margin: 0;
+}
+
+.stack-do-wrapper {
+  width: 100%;
+  text-align: left;
+}
+
+section.stackdo-app {
+  margin: 0 10%;
+}
+
+h1 {
+  font-size: 2.5em;
+  text-align: center;
+  width: 100%;
+}
+
+img {
+  width: 1em;
+  position: relative;
+  top: .2em;
+  margin-right: .2em;
+}
+
+input {
+  font-family: 'Maven Pro', sans-serif;
+  border: 0px;
+  border-bottom: 1px solid #DFDFDF;
+  outline: 0px;
+  padding: .8em .7em;
+  transition: all .2s ease-in-out;
+  margin-bottom: 10px;
+  text-align: left;
+  background-color: transparent;
+  color: #CCC;
+}
+
+input:focus {
+  -webkit-box-shadow: 0px 3px 10px -2px #3a597f;
+     -moz-box-shadow: 0px 3px 10px -2px #3a597f;
+          box-shadow: 0px 3px 10px -2px #3a597f;
+  background-color: #FAFAFA;
+  z-index: 10;
+}
+
+input.new-todo {
+  font-size: 1.2em;
+  margin: 1em 0 2em 0;
+  padding: .4em .7em;
+  color: #666;
+  width: 40%;
+}
+
+ul { margin: 0; padding: 0 }
+ul li {
+  list-style: none;
+}
+
+.view {
+  position: relative;
+  width: 40%;
+}
+
+.view:hover > .destroy {
+  display: block;
+  cursor: pointer;
+}
+
+.view .destroy {
+  display: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 100%;
+  vertical-align: baseline;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  margin: auto 0;
+  margin-bottom: .7em;
+  font-size: .9em;
+  transition: color 0.2s ease-out;
+  color: #cc9a9a;
+  z-index: 1;
+}
+
+.view .destroy:after {
+  content: "remove";
+}
+
+.view input.edit {
+  width: 100%;
+}
+
+.editing .view input {
+  color: #666;
+}
+
+ul.todo-list li:first-child .view {
+  text-align: center;
+  width: 50%;
+  margin: 1em auto;
+}
+
+ul.todo-list li:first-child .view:before {
+  position: absolute;
+  margin-bottom: .7em;
+  top: -1.1em; left: 0; bottom: 0;
+  content: "active";
+  color: lightseagreen;
+}
+
+ul.todo-list li:first-child .view .destroy { margin-bottom: .3em; }
+ul.todo-list li:first-child .view .destroy:after {
+  font-size: .7em;
+  content: "done";
+  color: lightseagreen;
+}
+
+ul.todo-list li:first-child .view * {
+  font-size: 2.5em;
+}
+
+ul.todo-list li:first-child .view input {
+  padding: .4em .7em;
+  color: #666;
+}
+
+.footer {
+  padding: 1em;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer a,
+.footer a:visited,
+.footer a:hover,
+.footer a:active
+{
+  color: #008080 !important;
+  text-decoration: none !important;
+}
+
+/*#008080*/
